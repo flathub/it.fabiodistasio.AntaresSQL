@@ -16,8 +16,13 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --filesystem=home
+  - --filesystem=xdg-config/gtk-3.0:ro
+  - --filesystem=xdg-config/kdeglobals:ro
+  - --talk-name=org.freedesktop.secrets
 
 modules:
+  - shared-modules/libsecret/libsecret.json
+
   - name: node
     buildsystem: simple
     build-commands:
@@ -41,6 +46,7 @@ modules:
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+
       # Bundle app and dependencies
       - cp -a build/linux*unpacked /app/main
 
@@ -57,7 +63,7 @@ modules:
         dest: main
       
       - type: file
-        path: startantares      
+        path: startantares
 
       - type: file
         path: it.fabiodistasio.AntaresSQL.desktop
