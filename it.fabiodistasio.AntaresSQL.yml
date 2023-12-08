@@ -10,14 +10,19 @@ command: startantares
 separate-locales: false
 finish-args:
   - --share=ipc
+  - --share=network
   - --socket=fallback-x11
   - --socket=wayland
-  - --device=dri
   - --socket=pulseaudio
-  - --share=network
+  - --device=dri
   - --filesystem=home
+  - --filesystem=xdg-config/gtk-3.0:ro
+  - --filesystem=xdg-config/kdeglobals:ro
+  - --talk-name=org.freedesktop.secrets
 
 modules:
+  - shared-modules/libsecret/libsecret.json
+
   - name: node
     buildsystem: simple
     build-commands:
@@ -30,17 +35,20 @@ modules:
       append-path: /usr/lib/sdk/node18/bin
       env:
         XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
-        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/22.3.27 #For native deps
+        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/18.18.1 #For native deps
         npm_config_cache: /run/build/antares/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
+      # - |
+      #   sed -i 's/asar": true/asar": false/g' package.json
       # Install npm dependencies
       - npm install --offline
       # Build the app; in this example the `dist` script
       # in package.json runs electron-builder
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
-        npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+        DISTRIBUTION=flatpak npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+
       # Bundle app and dependencies
       - cp -a build/linux*unpacked /app/main
 
@@ -52,12 +60,12 @@ modules:
     sources:
       - type: git
         url: https://github.com/antares-sql/antares.git
-        tag: v0.7.19
-        commit: 19d9f56f08b1a1868d875d60958a180ab526e1cc
+        tag: v0.7.20
+        commit: ba6063e6363b66e4422dda35e198fe7bebb39ec9
         dest: main
       
       - type: file
-        path: startantares      
+        path: startantares
 
       - type: file
         path: it.fabiodistasio.AntaresSQL.desktop
