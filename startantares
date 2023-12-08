@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
+FLATPAK_ID=${FLATPAK_ID:-it.fabiodistasio.AntaresSQL}
 FEATURES="UseSkiaRenderer, WaylandWindowDecorations"
-TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID:-it.fabiodistasio.AntaresSQL}"
+TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID}"
 declare -a FLAGS=(--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --disable-gpu-blocklist)
 
 if [[ $XDG_SESSION_TYPE == "wayland" ]]
