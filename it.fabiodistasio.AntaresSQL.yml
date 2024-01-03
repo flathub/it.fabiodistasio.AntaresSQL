@@ -16,8 +16,8 @@ finish-args:
   - --socket=pulseaudio
   - --device=dri
   - --filesystem=home
-  - --filesystem=xdg-config/gtk-3.0:ro
-  - --filesystem=xdg-config/kdeglobals:ro
+  - --filesystem=~/.config/gtk-3.0:ro
+  - --filesystem=~/.config/kdeglobals:ro
   - --talk-name=org.freedesktop.secrets
   - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
 
