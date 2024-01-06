@@ -36,7 +36,7 @@ modules:
       append-path: /usr/lib/sdk/node18/bin
       env:
         XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
-        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/18.18.1 #For native deps
+        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/22.3.27 #For native deps
         npm_config_cache: /run/build/antares/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
@@ -48,7 +48,7 @@ modules:
       # in package.json runs electron-builder
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
-        DISTRIBUTION=flatpak npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+        npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
 
       # Bundle app and dependencies
       - cp -a build/linux*unpacked /app/main
