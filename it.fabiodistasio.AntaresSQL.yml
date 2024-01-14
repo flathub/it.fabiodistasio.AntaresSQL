@@ -41,7 +41,6 @@ modules:
         npm_config_offline: 'true'
     build-commands:
       # - |
-      #   sed -i 's/asar": true/asar": false/g' package.json
       # Install npm dependencies
       - npm install --offline
       # Build the app; in this example the `dist` script
@@ -61,8 +60,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/antares-sql/antares.git
-        tag: v0.7.20
-        commit: ba6063e6363b66e4422dda35e198fe7bebb39ec9
+        tag: v0.7.21
+        commit: eb5d3f14f117a8ebd344081dfb6c581096b59675
         dest: main
       
       - type: file
