@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
    <id>it.fabiodistasio.AntaresSQL</id>
+   <launchable type="desktop-id">it.fabiodistasio.AntaresSQL.desktop</launchable>
    <name>Antares SQL</name>
    <metadata_license>CC0-1.0</metadata_license>
    <project_license>MIT</project_license>
