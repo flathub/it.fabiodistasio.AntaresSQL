@@ -5,7 +5,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: '23.08'
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node18
+  - org.freedesktop.Sdk.Extension.node20
 command: startantares
 separate-locales: false
 finish-args:
@@ -27,16 +27,16 @@ modules:
   - name: node
     buildsystem: simple
     build-commands:
-      - /usr/lib/sdk/node18/install-sdk.sh
+      - /usr/lib/sdk/node20/install-sdk.sh
 
   - name: antares
     buildsystem: simple
     build-options:
       # Add the node bin directory.
-      append-path: /usr/lib/sdk/node18/bin
+      append-path: /usr/lib/sdk/node20/bin
       env:
         XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
-        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/22.3.27 #For native deps
+        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/26.6.9 #For native deps
         npm_config_cache: /run/build/antares/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
