@@ -30,6 +30,7 @@ A modern application created with minimalism and semplicity in mind, with featur
    </screenshots>
    <content_rating type="oars-1.1" />
    <releases>
+      <release version="v0.7.24" date="2024-05-03"/>
       <release version="v0.7.23" date="2024-04-07"/>
       <release version="v0.7.22" date="2024-02-27"/>
       <release version="v0.7.21" date="2024-01-13"/>
