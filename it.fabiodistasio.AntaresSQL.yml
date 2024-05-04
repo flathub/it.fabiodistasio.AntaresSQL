@@ -60,8 +60,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/antares-sql/antares.git
-        tag: v0.7.23
-        commit: a752dcb6a9134346ef9d0c05b4f586355373a404
+        tag: v0.7.24
+        commit: 957cb9e1a59432fa947af26008020b4ac4f43aa9
         dest: main
       
       - type: file
