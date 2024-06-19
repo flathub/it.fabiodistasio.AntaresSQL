@@ -36,7 +36,7 @@ modules:
       append-path: /usr/lib/sdk/node20/bin
       env:
         XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
-        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/26.6.9 #For native deps
+        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/30.0.8 #For native deps
         npm_config_cache: /run/build/antares/flatpak-node/npm-cache
         npm_config_offline: 'true'
     build-commands:
@@ -60,8 +60,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/antares-sql/antares.git
-        tag: v0.7.24
-        commit: 957cb9e1a59432fa947af26008020b4ac4f43aa9
+        tag: v0.7.25
+        commit: 49f1a8ef2e116719f5f8d56826cfea806682d1db
         dest: main
       
       - type: file
