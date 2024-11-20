@@ -1,11 +1,9 @@
 app-id: it.fabiodistasio.AntaresSQL
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node20
+base-version: "24.08"
 command: startantares
 separate-locales: false
 finish-args:
@@ -24,56 +22,57 @@ finish-args:
 modules:
   - shared-modules/libsecret/libsecret.json
 
-  - name: node
-    buildsystem: simple
-    build-commands:
-      - /usr/lib/sdk/node20/install-sdk.sh
-
   - name: antares
     buildsystem: simple
-    build-options:
-      # Add the node bin directory.
-      append-path: /usr/lib/sdk/node20/bin
-      env:
-        XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
-        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/30.0.8 #For native deps
-        npm_config_cache: /run/build/antares/flatpak-node/npm-cache
-        npm_config_offline: 'true'
-    build-commands:
-      # - |
-      # Install npm dependencies
-      - npm install --offline
-      # Build the app; in this example the `dist` script
-      # in package.json runs electron-builder
-      - |
-        . ../flatpak-node/electron-builder-arch-args.sh
-        npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
 
-      # Bundle app and dependencies
-      - cp -a build/linux*unpacked /app/main
-
-      - install -Dm755 ../startantares /app/bin/startantares
-      - install -D ../it.fabiodistasio.AntaresSQL.metainfo.xml -t /app/share/metainfo/
-      - install -D ../it.fabiodistasio.AntaresSQL.desktop -t /app/share/applications/
-      - install -D ../it.fabiodistasio.AntaresSQL.png /app/share/icons/hicolor/256x256/apps/it.fabiodistasio.AntaresSQL.png
-    subdir: main
     sources:
-      - type: git
-        url: https://github.com/antares-sql/antares.git
-        tag: v0.7.25
-        commit: 49f1a8ef2e116719f5f8d56826cfea806682d1db
-        dest: main
-      
+      # x86_64 config:
+      - type: file
+        dest-filename: antares.deb
+        only-arches: [x86_64]
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.29/Antares-0.7.29-linux_amd64.deb
+        sha256: e0611a9710a2c65bb9112d13f014ecc909ec36d79df46457272d3f77aed8b203
+        x-checker-data:
+          is-main-source: true
+          type: json
+          url: https://api.github.com/repos/antares-sql/antares/releases/latest
+          version-query: .tag_name | sub("^v"; "")
+          timestamp-query: .published_at
+          url-query: .assets | map(.browser_download_url | select(endswith("_amd64.deb"))) | first
+
+      # ARM config:
+      - type: file
+        dest-filename: antares.deb
+        only-arches: [aarch64]
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.29/Antares-0.7.29-linux_arm64.deb
+        sha256: b5aa7e1b4f621e57da8420c5182588e7b985fd13d546fdc507fb58e6bf504924
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/antares-sql/antares/releases/latest
+          version-query: .tag_name | sub("^v"; "")
+          timestamp-query: .published_at
+          url-query: .assets | map(.browser_download_url | select(endswith("_arm64.deb"))) | first
+
       - type: file
         path: startantares
 
       - type: file
         path: it.fabiodistasio.AntaresSQL.desktop
-      
+
       - type: file
         path: it.fabiodistasio.AntaresSQL.metainfo.xml
-      
+
       - type: file
         path: it.fabiodistasio.AntaresSQL.png
-      
-      - generated-sources.json
+
+    build-commands:
+      - ar x antares.deb
+      - rm -f antares.deb
+      - tar -xf data.tar.xz
+      - rm -f control.tar.gz data.tar.xz debian-binary
+      - cp -r opt/* usr/* /app
+      - rm -rf opt usr
+      - install -Dm755 startantares /app/bin/startantares
+      - install -D it.fabiodistasio.AntaresSQL.metainfo.xml -t /app/share/metainfo/
+      - install -D it.fabiodistasio.AntaresSQL.desktop -t /app/share/applications/
+      - install -D it.fabiodistasio.AntaresSQL.png /app/share/icons/hicolor/256x256/apps/it.fabiodistasio.AntaresSQL.png
