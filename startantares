@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-FLATPAK_ID=${FLATPAK_ID:-it.fabiodistasio.AntaresSQL}
-FEATURES="UseSkiaRenderer, WaylandWindowDecorations"
-TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID}"
+export FLATPAK_ID=${FLATPAK_ID:-it.fabiodistasio.AntaresSQL}
+export FEATURES="UseSkiaRenderer, WaylandWindowDecorations"
+export TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID}"
 declare -a FLAGS=(--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --disable-gpu-blocklist --ozone-platform-hint=auto)
 
 if [[ $XDG_SESSION_TYPE == "wayland" ]]
@@ -17,4 +17,4 @@ fi
 
 FLAGS+=(--enable-features="${FEATURES}")
 echo "Passing the following arguments to Electron:" "${FLAGS[@]}"
-zypak-wrapper /app/main/antares "${FLAGS[@]}" "$@"
+exec zypak-wrapper /app/Antares/antares "${FLAGS[@]}" "$@"

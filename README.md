@@ -29,7 +29,7 @@ The `flatpak-builder` package is required.
 **Install the SDK:**
 
 ```shell
-flatpak install org.freedesktop.Platform/x86_64/23.08 org.freedesktop.Sdk/x86_64/23.08 org.freedesktop.Sdk.Extension.node20/x86_64/23.08
+flatpak install org.freedesktop.Platform/x86_64/24.08 org.freedesktop.Sdk/x86_64/24.08 org.electronjs.Electron2.BaseApp/x86_64/24.08
 ```
 
 **Build Antares SQL:**
@@ -37,7 +37,3 @@ flatpak install org.freedesktop.Platform/x86_64/23.08 org.freedesktop.Sdk/x86_64
 ```shell
 flatpak-builder --user --install --force-clean build it.fabiodistasio.AntaresSQL.yml
 ```
-
-## Notes
-
-At moment the [flatpak-node-generator](https://github.com/flatpak/flatpak-builder-tools/tree/master/node) tool doesn't support package-lock.json v3. A workaround is generate an Antares `package-lock.json` with `npm i --lockfile-version 2 --package-lock-only` command.
