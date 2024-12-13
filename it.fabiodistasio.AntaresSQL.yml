@@ -30,7 +30,7 @@ modules:
       - type: file
         dest-filename: antares.deb
         only-arches: [x86_64]
-        url: https://github.com/antares-sql/antares/releases/download/v0.7.29/Antares-0.7.29-linux_amd64.deb
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.30/Antares-0.7.30-linux_amd64.deb
         sha256: e0611a9710a2c65bb9112d13f014ecc909ec36d79df46457272d3f77aed8b203
         x-checker-data:
           is-main-source: true
@@ -44,7 +44,7 @@ modules:
       - type: file
         dest-filename: antares.deb
         only-arches: [aarch64]
-        url: https://github.com/antares-sql/antares/releases/download/v0.7.29/Antares-0.7.29-linux_arm64.deb
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.30/Antares-0.7.30-linux_arm64.deb
         sha256: b5aa7e1b4f621e57da8420c5182588e7b985fd13d546fdc507fb58e6bf504924
         x-checker-data:
           type: json
