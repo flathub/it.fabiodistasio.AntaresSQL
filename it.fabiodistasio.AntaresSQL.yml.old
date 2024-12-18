@@ -1,0 +1,79 @@
+app-id: it.fabiodistasio.AntaresSQL
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '23.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node20
+command: startantares
+separate-locales: false
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=home
+  - --filesystem=~/.config/gtk-3.0:ro
+  - --filesystem=~/.config/kdeglobals:ro
+  - --talk-name=org.freedesktop.secrets
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
+
+modules:
+  - shared-modules/libsecret/libsecret.json
+
+  - name: node
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/node20/install-sdk.sh
+
+  - name: antares
+    buildsystem: simple
+    build-options:
+      # Add the node bin directory.
+      append-path: /usr/lib/sdk/node20/bin
+      env:
+        XDG_CACHE_HOME: /run/build/antares/flatpak-node/cache
+        npm_config_nodedir: /run/build/antares/flatpak-node/cache/node-gyp/30.0.8 #For native deps
+        npm_config_cache: /run/build/antares/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+    build-commands:
+      # - |
+      # Install npm dependencies
+      - npm install --offline
+      # Build the app; in this example the `dist` script
+      # in package.json runs electron-builder
+      - |
+        . ../flatpak-node/electron-builder-arch-args.sh
+        npm run build -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
+
+      # Bundle app and dependencies
+      - cp -a build/linux*unpacked /app/main
+
+      - install -Dm755 ../startantares /app/bin/startantares
+      - install -D ../it.fabiodistasio.AntaresSQL.metainfo.xml -t /app/share/metainfo/
+      - install -D ../it.fabiodistasio.AntaresSQL.desktop -t /app/share/applications/
+      - install -D ../it.fabiodistasio.AntaresSQL.png /app/share/icons/hicolor/256x256/apps/it.fabiodistasio.AntaresSQL.png
+    subdir: main
+    sources:
+      - type: git
+        url: https://github.com/antares-sql/antares.git
+        tag: v0.7.25
+        commit: 49f1a8ef2e116719f5f8d56826cfea806682d1db
+        dest: main
+      
+      - type: file
+        path: startantares
+
+      - type: file
+        path: it.fabiodistasio.AntaresSQL.desktop
+      
+      - type: file
+        path: it.fabiodistasio.AntaresSQL.metainfo.xml
+      
+      - type: file
+        path: it.fabiodistasio.AntaresSQL.png
+      
+      - generated-sources.json
