@@ -28,8 +28,11 @@ A modern application created with minimalism and semplicity in mind, with featur
          <image type="source">http://assets.fabiodistasio.it/antares/antares-sql.jpg</image>
       </screenshot>
    </screenshots>
-   <content_rating type="oars-1.1" />
+   <content_rating type="oars-1.1"/>
    <releases>
+      <release version="0.7.33" date="2025-02-14">
+         <description></description>
+      </release>
       <release version="v0.7.32" date="2025-02-14"/>
       <release version="v0.7.31" date="2025-02-12"/>
       <release version="v0.7.30" date="2024-12-04"/>
