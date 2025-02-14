@@ -1,9 +1,9 @@
 app-id: it.fabiodistasio.AntaresSQL
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: "24.08"
+base-version: '24.08'
 command: startantares
 separate-locales: false
 finish-args:
@@ -30,28 +30,30 @@ modules:
       - type: file
         dest-filename: antares.deb
         only-arches: [x86_64]
-        url: https://github.com/antares-sql/antares/releases/download/v0.7.32/Antares-0.7.32-linux_amd64.deb
-        sha256: b5ed4f978953d84bc81c5c7640d751fb7682d7024e2cddba8344ceeaf88523e5
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.34/Antares-0.7.34-linux_amd64.deb
+        sha256: 0f5cbefad698025afa9cfc5a40ed40fdf245c4b19b2165b2582965ec9b765af6
         x-checker-data:
           is-main-source: true
           type: json
           url: https://api.github.com/repos/antares-sql/antares/releases/latest
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
-          url-query: .assets | map(.browser_download_url | select(endswith("_amd64.deb"))) | first
+          url-query: .assets | map(.browser_download_url | select(endswith("_amd64.deb")))
+            | first
 
       # ARM config:
       - type: file
         dest-filename: antares.deb
         only-arches: [aarch64]
-        url: https://github.com/antares-sql/antares/releases/download/v0.7.32/Antares-0.7.32-linux_arm64.deb
-        sha256: 12067ef80e93df3ec6153f52a01a24322dc6b565badb146e5b15e2e7f02dbddd
+        url: https://github.com/antares-sql/antares/releases/download/v0.7.34/Antares-0.7.34-linux_arm64.deb
+        sha256: 30d2a9f6723c9348338e9b5f366fa514ad379df68c2047576682e490e5211cc8
         x-checker-data:
           type: json
           url: https://api.github.com/repos/antares-sql/antares/releases/latest
           version-query: .tag_name | sub("^v"; "")
           timestamp-query: .published_at
-          url-query: .assets | map(.browser_download_url | select(endswith("_arm64.deb"))) | first
+          url-query: .assets | map(.browser_download_url | select(endswith("_arm64.deb")))
+            | first
 
       - type: file
         path: startantares
